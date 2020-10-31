@@ -2,45 +2,53 @@ import 'package:flutter/material.dart';
 
 /// 点击事件
 typedef OnItemClickListener = void Function(int index);
-typedef DoAction = void Function(ShareType shareType,ShareInfo shareInfo);
-enum ShareType{SESSION, TIMELINE,COPY_LINK,DOWNLOAD}
+typedef DoAction = void Function(ShareType shareType, ShareInfo shareInfo);
+enum ShareType { SESSION, TIMELINE, COPY_LINK, DOWNLOAD }
+
 /// 定义分享内容
-class ShareInfo{
+class ShareInfo {
   /// 标题
   String title;
+
   /// 连接
   String url;
+
   /// 图片
   var img;
+
   /// 描述
   String describe;
-  ShareInfo(this.title,this.url,{this.img,this.describe=""});
-  static ShareInfo fromJson(Map map){
-    return ShareInfo(
-      map['title'],
-      map['url'],
-      img:map['img'],
-      describe:map['describe']
-    );
+
+  ShareInfo(this.title, this.url, {this.img, this.describe = ""});
+
+  static ShareInfo fromJson(Map map) {
+    return ShareInfo(map['title'], map['url'],
+        img: map['img'], describe: map['describe']);
   }
 }
+
 /// 分享操作
-class ShareOpt{
+class ShareOpt {
   final String title;
   final String img;
   final DoAction doAction;
   final ShareType shareType;
 
-  const ShareOpt({this.title,this.img,this.shareType= ShareType.SESSION,this.doAction});
+  const ShareOpt(
+      {this.title = "",
+      this.img = "",
+      this.shareType = ShareType.SESSION,
+      required this.doAction});
 }
-
 
 /// 弹出窗
 class AnZiShareWidget extends StatefulWidget {
   final List<ShareOpt> list;
-  final OnItemClickListener onItemClickListener;
   final ShareInfo shareInfo;
-  const AnZiShareWidget(this.shareInfo,{Key key,this.list,this.onItemClickListener}):assert(list != null),super(key:key);
+
+  const AnZiShareWidget(this.shareInfo,
+      {Key? key, required this.list})
+      : super(key: key);
 
   @override
   _AnZiShareWidgetState createState() => _AnZiShareWidgetState();
@@ -48,20 +56,13 @@ class AnZiShareWidget extends StatefulWidget {
 
 class _AnZiShareWidgetState extends State<AnZiShareWidget> {
 
-  OnItemClickListener onItemClickListener;
-
   @override
   void initState() {
     super.initState();
-    onItemClickListener = widget.onItemClickListener;
   }
-
 
   @override
   Widget build(BuildContext context) {
-    if (widget.list == null) {
-      return Container();
-    }
     return Container(
       height: 170,
       child: Column(
@@ -99,13 +100,11 @@ class _AnZiShareWidgetState extends State<AnZiShareWidget> {
                       childAspectRatio: 1.0),
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
-                      behavior: HitTestBehavior.opaque,// 空白地方也可以点击
-                      onTap: (){
+                      behavior: HitTestBehavior.opaque, // 空白地方也可以点击
+                      onTap: () {
                         Navigator.pop(context);
-                        if(widget.list[index].doAction != null){
-                          widget.list[index].doAction(widget.list[index].shareType,widget.shareInfo);
-                        }
-
+                        widget.list[index].doAction(
+                            widget.list[index].shareType, widget.shareInfo);
                       },
                       child: Column(
                         children: <Widget>[

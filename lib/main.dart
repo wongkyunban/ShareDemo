@@ -68,9 +68,9 @@ class HomePage extends StatefulWidget {
       var model = _getShareModel(shareType, shareInfo);
       fluwx.shareToWeChat(model);
     }),
-    ShareOpt(title:'复制', img:'images/icon_copy.png',shareType:ShareType.COPY_LINK),
+    ShareOpt(title:'复制', img:'images/icon_copy.png',shareType:ShareType.COPY_LINK,doAction: (shareType,shareInfo){}),
     ShareOpt(title:'链接', img:'images/icon_copylink.png',shareType:ShareType.COPY_LINK,doAction: (shareType,shareInfo){
-      if(shareType == ShareType.COPY_LINK && shareInfo != null){
+      if(shareType == ShareType.COPY_LINK){
         ClipboardData data = new ClipboardData(text: shareInfo.url);
         Clipboard.setData(data);
       }
@@ -124,11 +124,6 @@ class _HomePageState extends State<HomePage> {
                     return AnZiShareWidget(
                       ShareInfo('Hello world','http://www.baidu.com'),
                       list: widget.list,
-                      onItemClickListener: (index) async {
-                        // if (widget.list[index].doAction != null) {
-                        //   widget.list[index].doAction(widget.list[index].shareType,context.shareInfo);
-                        // }
-                      },
                     );
                   });
             },
