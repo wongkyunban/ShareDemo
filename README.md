@@ -77,7 +77,7 @@ IconButton(
             },
           )
 ```
-AnZiShareWidget包括两个参数，第一个是shareInfo这是分享的内容，第二个是list，它是分享选项ShareOpt数组。
+ShareWidget包括两个参数，第一个是shareInfo这是分享的内容，第二个是list，它是分享选项ShareOpt数组。
 
 # reference
 
