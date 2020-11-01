@@ -42,19 +42,19 @@ class ShareOpt {
 }
 
 /// 弹出窗
-class AnZiShareWidget extends StatefulWidget {
+class ShareWidget extends StatefulWidget {
   final List<ShareOpt> list;
   final ShareInfo shareInfo;
 
-  const AnZiShareWidget(this.shareInfo,
+  const ShareWidget(this.shareInfo,
       {Key? key, required this.list})
       : super(key: key);
 
   @override
-  _AnZiShareWidgetState createState() => _AnZiShareWidgetState();
+  _ShareWidgetState createState() => _ShareWidgetState();
 }
 
-class _AnZiShareWidgetState extends State<AnZiShareWidget> {
+class _ShareWidgetState extends State<ShareWidget> {
 
   @override
   void initState() {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 
-import 'anzi_share.dart';
+import 'w_share.dart';
 import 'package:fluwx/fluwx.dart' as fluwx;
 
 void main() => runApp(MyApp());
@@ -24,7 +24,6 @@ class HomePage extends StatefulWidget {
 
 
   static dynamic _getShareModel(ShareType shareType,ShareInfo shareInfo){
-    if(shareInfo == null) return;
     var scene = fluwx.WeChatScene.SESSION;
     switch(shareType){
       case ShareType.SESSION:
@@ -59,12 +58,10 @@ class HomePage extends StatefulWidget {
 
   final List<ShareOpt> list = [
     ShareOpt(title:'微信', img:'images/icon_wechat.jpg',shareType:ShareType.SESSION,doAction:(shareType,shareInfo)async{
-      if(shareInfo == null) return;
       var model = _getShareModel(shareType, shareInfo);
       fluwx.shareToWeChat(model);
     }),
     ShareOpt(title:'朋友圈', img:'images/icon_wechat_moments.jpg',shareType:ShareType.TIMELINE,doAction: (shareType,shareInfo){
-      if(shareInfo == null) return;
       var model = _getShareModel(shareType, shareInfo);
       fluwx.shareToWeChat(model);
     }),
@@ -121,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                   backgroundColor: Colors.transparent,
                   context: context,
                   builder: (BuildContext context) {
-                    return AnZiShareWidget(
+                    return ShareWidget(
                       ShareInfo('Hello world','http://www.baidu.com'),
                       list: widget.list,
                     );
